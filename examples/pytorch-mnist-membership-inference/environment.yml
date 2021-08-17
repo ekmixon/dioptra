@@ -14,7 +14,7 @@
 #
 # ACCESS THE FULL CC BY 4.0 LICENSE HERE:
 # https://creativecommons.org/licenses/by/4.0/legalcode
-name: mnist-membership-inference
+name: pytorch-mnist-membership-inference
 channels:
   - defaults
   - conda-forge

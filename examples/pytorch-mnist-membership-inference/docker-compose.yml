@@ -35,6 +35,11 @@ services:
       JUPYTER_ENABLE_LAB: "yes"
       MLFLOW_TRACKING_URI: http://nginx:35000
       MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      KMP_AFFINITY: "none"
+      KMP_BLOCKTIME: "1"
+      KMP_SETTINGS: "FALSE"
+      OMP_PROC_BIND: "false"
+      TF_CPP_MIN_LOG_LEVEL: "2"
     command:
       - start-notebook.sh
       - --NotebookApp.port=38888
@@ -202,12 +207,13 @@ services:
       KMP_SETTINGS: "FALSE"
       OMP_PROC_BIND: "false"
       RQ_REDIS_URI: redis://redis:6379/0
+      TF_CPP_MIN_LOG_LEVEL: "2"
     command:
       - pytorch_cpu
     networks:
       - lab_deployment_backend
     volumes:
-      - nfs-datasets:/nfs/data/Mnist
+      - nfs-datasets:/nfs/data
       - restapi-data:/work/data
 
   pytorchcpu-02:
@@ -232,12 +238,13 @@ services:
       KMP_SETTINGS: "FALSE"
       OMP_PROC_BIND: "false"
       RQ_REDIS_URI: redis://redis:6379/0
+      TF_CPP_MIN_LOG_LEVEL: "2"
     command:
       - pytorch_cpu
     networks:
       - lab_deployment_backend
     volumes:
-      - nfs-datasets:/nfs/data/Mnist
+      - nfs-datasets:/nfs/data
       - restapi-data:/work/data
 
 volumes:
