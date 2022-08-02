@@ -174,13 +174,14 @@ class TaskPluginService(object):
             log=log,
         )
 
-        if not modules:
-            return None
-
-        return TaskPlugin(
-            task_plugin_name=task_plugin_name,
-            collection=collection,
-            modules=[str(Path(x).name) for x in modules],
+        return (
+            TaskPlugin(
+                task_plugin_name=task_plugin_name,
+                collection=collection,
+                modules=[str(Path(x).name) for x in modules],
+            )
+            if modules
+            else None
         )
 
     def extract_data_from_form(
@@ -189,11 +190,7 @@ class TaskPluginService(object):
         log: BoundLogger = kwargs.get("log", LOGGER.new())
 
         log.info("Extract data from task plugin upload form")
-        data: TaskPluginUploadFormData = self._task_plugin_upload_form_schema.dump(
-            task_plugin_upload_form
-        )
-
-        return data
+        return self._task_plugin_upload_form_schema.dump(task_plugin_upload_form)
 
     def _validate_task_plugin_does_not_exist(
         self, collection, task_plugin_name, **kwargs

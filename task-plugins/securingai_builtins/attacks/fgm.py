@@ -224,10 +224,9 @@ def _init_fgm(
     Returns:
         A :py:class:`~art.attacks.evasion.FastGradientMethod` object.
     """
-    attack: FastGradientMethod = FastGradientMethod(
+    return FastGradientMethod(
         estimator=keras_classifier, batch_size=batch_size, **kwargs
     )
-    return attack
 
 
 def _save_adv_batch(adv_batch, adv_data_dir, y, clean_filenames) -> None:

@@ -122,10 +122,7 @@ def miface_attack(
 
         adv_data_dir.mkdir(parents=True, exist_ok=True)
 
-        image_size = (28, 28)
-        if model_architecture == "alex_net":
-            image_size = (224, 224)
-
+        image_size = (224, 224) if model_architecture == "alex_net" else (28, 28)
         distance_metrics = miface_infer(
             model=model,
             adv_data_dir=adv_data_dir.resolve(),

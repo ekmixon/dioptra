@@ -167,10 +167,7 @@ def fgm_attack(
 
         adv_data_dir.mkdir(parents=True, exist_ok=True)
 
-        image_size = (28, 28)
-        if model_architecture == "alex_net":
-            image_size = (224, 224)
-
+        image_size = (224, 224) if model_architecture == "alex_net" else (28, 28)
         classifier, distance_metrics = create_adversarial_fgm_dataset(
             data_dir=testing_dir,
             model=model,

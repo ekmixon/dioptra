@@ -82,7 +82,7 @@ def create_adversarial_cw_l2_dataset(
     image_size: Tuple[int, int] = (28, 28),
     **kwargs,
 ):
-    model_name = model_name + "/" + model_version
+    model_name = f"{model_name}/{model_version}"
     LOGGER.info("Model Selected: ", model_name=model_name)
     color_mode: str = "color" if image_size[2] == 3 else "grayscale"
     target_size: Tuple[int, int] = image_size[:2]
@@ -134,10 +134,7 @@ def create_adversarial_cw_l2_dataset(
         clean_filenames = img_filenames[
             batch_num * batch_size : (batch_num + 1) * batch_size
         ]
-        test = []
-        for item in clean_filenames:
-            test.append(item.resolve())
-
+        test = [item.resolve() for item in clean_filenames]
         LOGGER.info(
             "Generate adversarial image batch",
             attack="cw_l2",
@@ -188,10 +185,9 @@ def _init_cw_l2(
     Returns:
         A :py:class:`~art.attacks.evasion.CarliniLInfMethod` object.
     """
-    attack: CarliniL2Method = CarliniL2Method(
+    return CarliniL2Method(
         classifier=keras_classifier, batch_size=batch_size, **kwargs
     )
-    return attack
 
 
 def _save_adv_batch(adv_batch, adv_data_dir, y, clean_filenames) -> None:

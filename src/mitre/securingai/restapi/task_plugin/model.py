@@ -46,13 +46,14 @@ class TaskPlugin(object):
     modules: List[str]
 
     def __eq__(self, other):
-        if not isinstance(other, TaskPlugin):
-            return NotImplemented
-
         return (
-            self.task_plugin_name == other.task_plugin_name
-            and self.collection == other.collection
-            and set(self.modules) == set(other.modules)
+            (
+                self.task_plugin_name == other.task_plugin_name
+                and self.collection == other.collection
+                and set(self.modules) == set(other.modules)
+            )
+            if isinstance(other, TaskPlugin)
+            else NotImplemented
         )
 
 

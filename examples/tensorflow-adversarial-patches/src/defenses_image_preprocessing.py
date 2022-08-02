@@ -81,27 +81,24 @@ def get_optimizer(optimizer, learning_rate):
 # Load model from registry and apply imagenet_preprocessing if needed.
 def wrap_keras_classifier(model, clip_values, imagenet_preprocessing):
     keras_model = load_model_in_registry(model=model)
-    if imagenet_preprocessing:
-        mean_b = 103.939
-        mean_g = 116.779
-        mean_r = 123.680
-        return KerasClassifier(
-            model=keras_model,
-            clip_values=clip_values,
-            preprocessing=([mean_b, mean_g, mean_r], 1),
-        )
-    else:
+    if not imagenet_preprocessing:
         return KerasClassifier(model=keras_model, clip_values=clip_values)
+    mean_b = 103.939
+    mean_g = 116.779
+    mean_r = 123.680
+    return KerasClassifier(
+        model=keras_model,
+        clip_values=clip_values,
+        preprocessing=([mean_b, mean_g, mean_r], 1),
+    )
 
 
 def init_defense(clip_values, def_type, **kwargs):
 
-    defense = DEFENSE_LIST[def_type](
+    return DEFENSE_LIST[def_type](
         clip_values=clip_values,
         **kwargs,
     )
-
-    return defense
 
 
 def save_def_batch(def_batch, def_data_dir, y, clean_filenames, class_names_list):
@@ -233,11 +230,10 @@ def create_defended_dataset(
 
 
 def init_defense(clip_values, def_type, **kwargs):
-    defense = DEFENSE_LIST[def_type](
+    return DEFENSE_LIST[def_type](
         clip_values=clip_values,
         **kwargs,
     )
-    return defense
 
 
 def _save_def_batch(

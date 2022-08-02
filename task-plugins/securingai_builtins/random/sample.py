@@ -50,9 +50,7 @@ def draw_random_integer(rng: RNGenerator, low: int = 0, high: int = 2 ** 31 - 1)
     See Also:
         - :py:meth:`numpy.random.Generator.integers`
     """
-    result: int = int(rng.integers(low=low, high=high))
-
-    return result
+    return int(rng.integers(low=low, high=high))
 
 
 @pyplugs.register
@@ -84,6 +82,4 @@ def draw_random_integers(
         - :py:meth:`numpy.random.Generator.integers`
     """
     size = size or 1
-    result: np.ndarray = rng.integers(low=low, high=high, size=size)
-
-    return result
+    return rng.integers(low=low, high=high, size=size)

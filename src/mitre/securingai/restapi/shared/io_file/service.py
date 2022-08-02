@@ -108,7 +108,4 @@ class IOFileService(object):
         def open_fileobj() -> TarFile:
             return tarfile.open(fileobj=fileobj)
 
-        if fileobj is not None:
-            return open_fileobj()
-
-        return open_file_path()
+        return open_fileobj() if fileobj is not None else open_file_path()

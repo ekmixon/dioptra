@@ -161,8 +161,6 @@ class ExperimentService(object):
     ) -> ExperimentRegistrationFormData:
         log: BoundLogger = kwargs.get("log", LOGGER.new())  # noqa: F841
 
-        data: ExperimentRegistrationFormData = (
-            self._experiment_registration_form_schema.dump(experiment_registration_form)
+        return self._experiment_registration_form_schema.dump(
+            experiment_registration_form
         )
-
-        return data

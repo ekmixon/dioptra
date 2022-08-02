@@ -47,13 +47,11 @@ def _(estimator: Model, x: Any, **kwargs) -> History:
         args_signature=("Model", "Any"),
     )
 
-    history: History = fit_keras_model(
+    return fit_keras_model(
         estimator=estimator,
         x=x,
         **kwargs,
     )
-
-    return history
 
 
 @fit_estimator.register  # type: ignore
@@ -65,14 +63,12 @@ def _(estimator: Model, x: Any, y: Any, **kwargs) -> History:
         args_signature=("Model", "Any", "Any"),
     )
 
-    history: History = fit_keras_model(
+    return fit_keras_model(
         estimator=estimator,
         x=x,
         y=y,
         **kwargs,
     )
-
-    return history
 
 
 @require_package("tensorflow", exc_type=TensorflowDependencyError)
@@ -87,9 +83,7 @@ def fit_keras_model(
     fit_kwargs: Dict[str, Any] = dict(
         y=y, batch_size=batch_size, epochs=nb_epochs, **kwargs
     )
-    history: History = estimator.fit(
+    return estimator.fit(
         x=x,
         **{k: v for k, v in fit_kwargs.items() if v is not None},
     )
-
-    return history

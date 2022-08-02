@@ -181,11 +181,7 @@ def register(
 
         return func
 
-    if _func is None:
-        return decorator_register
-
-    else:
-        return decorator_register(_func)
+    return decorator_register if _func is None else decorator_register(_func)
 
 
 @expose

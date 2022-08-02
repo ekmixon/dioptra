@@ -257,7 +257,7 @@ def create_adversarial_patch_dataset(
                 batch_size=batch_size,
                 shuffle=False,
             )
-        elif patch_deployment_method == "corrupt" and validation_split is not None:
+        else:
             data_flow = data_generator.flow_from_directory(
                 directory=data_dir,
                 target_size=target_size,
@@ -294,10 +294,9 @@ def create_adversarial_patch_dataset(
 def _init_patch(
     keras_classifier: KerasClassifier, batch_size: int, **kwargs
 ) -> AdversarialPatch:
-    attack = AdversarialPatch(
+    return AdversarialPatch(
         classifier=keras_classifier, batch_size=batch_size, **kwargs
     )
-    return attack
 
 
 def _save_adv_patch(patch_list, mask_list, id_list, num_patch, adv_patch_dir):
@@ -305,9 +304,9 @@ def _save_adv_patch(patch_list, mask_list, id_list, num_patch, adv_patch_dir):
     mask_list = np.array(mask_list)
     id_list = np.array(id_list)
 
-    np.save(str(adv_patch_dir) + "/patch_list", patch_list)
-    np.save(str(adv_patch_dir) + "/patch_mask_list", mask_list)
-    np.save(str(adv_patch_dir) + "/patch_id_list", id_list)
+    np.save(f"{str(adv_patch_dir)}/patch_list", patch_list)
+    np.save(f"{str(adv_patch_dir)}/patch_mask_list", mask_list)
+    np.save(f"{str(adv_patch_dir)}/patch_id_list", id_list)
 
     for patch_id in range(num_patch):
         patch = patch_list[patch_id]

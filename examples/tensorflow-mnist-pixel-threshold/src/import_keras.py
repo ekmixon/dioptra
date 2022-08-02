@@ -47,19 +47,16 @@ KERAS_OPTIMIZERS: str = "tensorflow.keras.optimizers"
 @require_package("tensorflow", exc_type=TensorflowDependencyError)
 def get_callback(callback_name: str) -> Callback:
     keras_callbacks: ModuleType = importlib.import_module(KERAS_CALLBACKS)
-    callback: Callback = getattr(keras_callbacks, callback_name)
-    return callback
+    return getattr(keras_callbacks, callback_name)
 
 
 @require_package("tensorflow", exc_type=TensorflowDependencyError)
 def get_metric(metric_name: str) -> Union[Metric, FunctionType]:
     keras_metrics: ModuleType = importlib.import_module(KERAS_METRICS)
-    metric: Metric = getattr(keras_metrics, metric_name)
-    return metric
+    return getattr(keras_metrics, metric_name)
 
 
 @require_package("tensorflow", exc_type=TensorflowDependencyError)
 def get_optimizer(optimizer_name: str) -> Optimizer:
     keras_optimizers: ModuleType = importlib.import_module(KERAS_OPTIMIZERS)
-    optimizer: Optimizer = getattr(keras_optimizers, optimizer_name)
-    return optimizer
+    return getattr(keras_optimizers, optimizer_name)

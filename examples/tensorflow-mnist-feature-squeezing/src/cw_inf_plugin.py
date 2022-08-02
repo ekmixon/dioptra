@@ -185,10 +185,9 @@ def _init_cw_inf(
     Returns:
         A :py:class:`~art.attacks.evasion.CarliniLInfMethod` object.
     """
-    attack: CarliniLInfMethod = CarliniLInfMethod(
+    return CarliniLInfMethod(
         classifier=keras_classifier, batch_size=batch_size, **kwargs
     )
-    return attack
 
 
 def _save_adv_batch(adv_batch, adv_data_dir, y, clean_filenames) -> None:

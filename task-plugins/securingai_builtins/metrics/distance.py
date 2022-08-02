@@ -133,10 +133,9 @@ def l_inf_norm(y_true, y_pred) -> np.ndarray:
     Returns:
         A :py:class:`numpy.ndarray` containing a batch of |Linf| norms.
     """
-    metric: np.ndarray = _matrix_difference_l_norm(
+    return _matrix_difference_l_norm(
         y_true=y_true, y_pred=y_pred, order=np.inf
     )
-    return metric
 
 
 def l_1_norm(y_true, y_pred) -> np.ndarray:
@@ -149,10 +148,7 @@ def l_1_norm(y_true, y_pred) -> np.ndarray:
     Returns:
         A :py:class:`numpy.ndarray` containing a batch of |L1| norms.
     """
-    metric: np.ndarray = _matrix_difference_l_norm(
-        y_true=y_true, y_pred=y_pred, order=1
-    )
-    return metric
+    return _matrix_difference_l_norm(y_true=y_true, y_pred=y_pred, order=1)
 
 
 def l_2_norm(y_true, y_pred) -> np.ndarray:
@@ -165,10 +161,7 @@ def l_2_norm(y_true, y_pred) -> np.ndarray:
     Returns:
         A :py:class:`numpy.ndarray` containing a batch of |L2| norms.
     """
-    metric: np.ndarray = _matrix_difference_l_norm(
-        y_true=y_true, y_pred=y_pred, order=2
-    )
-    return metric
+    return _matrix_difference_l_norm(y_true=y_true, y_pred=y_pred, order=2)
 
 
 def paired_cosine_similarities(y_true, y_pred) -> np.ndarray:
@@ -183,8 +176,7 @@ def paired_cosine_similarities(y_true, y_pred) -> np.ndarray:
     """
     y_true_normalized: np.ndarray = _normalize_batch(_flatten_batch(y_true), order=2)
     y_pred_normalized: np.ndarray = _normalize_batch(_flatten_batch(y_pred), order=2)
-    metric: np.ndarray = np.sum(y_true_normalized * y_pred_normalized, axis=1)
-    return metric
+    return np.sum(y_true_normalized * y_pred_normalized, axis=1)
 
 
 def paired_euclidean_distances(y_true, y_pred) -> np.ndarray:
@@ -199,8 +191,7 @@ def paired_euclidean_distances(y_true, y_pred) -> np.ndarray:
     Returns:
         A :py:class:`numpy.ndarray` containing a batch of euclidean distances.
     """
-    metric: np.ndarray = l_2_norm(y_true=y_true, y_pred=y_pred)
-    return metric
+    return l_2_norm(y_true=y_true, y_pred=y_pred)
 
 
 def paired_manhattan_distances(y_true, y_pred) -> np.ndarray:
@@ -215,8 +206,7 @@ def paired_manhattan_distances(y_true, y_pred) -> np.ndarray:
     Returns:
         A :py:class:`numpy.ndarray` containing a batch of Manhattan distances.
     """
-    metric: np.ndarray = l_1_norm(y_true=y_true, y_pred=y_pred)
-    return metric
+    return l_1_norm(y_true=y_true, y_pred=y_pred)
 
 
 def paired_wasserstein_distances(y_true, y_pred, **kwargs) -> np.ndarray:
@@ -272,8 +262,7 @@ def _matrix_difference_l_norm(y_true, y_pred, order) -> np.ndarray:
         - :py:func:`numpy.linalg.norm`
     """
     y_diff: np.ndarray = _flatten_batch(y_true - y_pred)
-    y_diff_l_norm: np.ndarray = np.linalg.norm(y_diff, axis=1, ord=order)
-    return y_diff_l_norm
+    return np.linalg.norm(y_diff, axis=1, ord=order)
 
 
 def _normalize_batch(X: np.ndarray, order: int) -> np.ndarray:
@@ -292,8 +281,7 @@ def _normalize_batch(X: np.ndarray, order: int) -> np.ndarray:
     """
     X_l_norm: np.ndarray = np.linalg.norm(X, axis=1, ord=order)
     num_samples: int = X_l_norm.shape[0]
-    normalized_batch: np.ndarray = X / X_l_norm.reshape((num_samples, 1))
-    return normalized_batch
+    return X / X_l_norm.reshape((num_samples, 1))
 
 
 DISTANCE_METRICS_REGISTRY: Dict[str, Callable[..., Any]] = dict(

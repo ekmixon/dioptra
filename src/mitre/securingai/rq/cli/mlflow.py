@@ -26,9 +26,7 @@ from mitre.securingai.sdk.utilities.logging import (
 )
 
 if __name__ == "__main__":
-    attach_stdout_stream_handler(
-        True if os.getenv("AI_MLFLOW_RUN_LOG_AS_JSON") else False,
-    )
+    attach_stdout_stream_handler(bool(os.getenv("AI_MLFLOW_RUN_LOG_AS_JSON")))
     set_logging_level(os.getenv("AI_MLFLOW_RUN_LOG_LEVEL", default="INFO"))
     configure_structlog()
     mlflow_cli()

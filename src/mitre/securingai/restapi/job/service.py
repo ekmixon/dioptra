@@ -148,11 +148,9 @@ class JobService(object):
             job_form_data["workflow"].filename or ""
         )
 
-        workflow_uri: Optional[str] = self._s3_service.upload(
+        return self._s3_service.upload(
             fileobj=job_form_data["workflow"],
             bucket="workflow",
             key=str(workflow_filename),
             log=log,
         )
-
-        return workflow_uri

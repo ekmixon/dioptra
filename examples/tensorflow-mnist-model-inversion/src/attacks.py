@@ -67,7 +67,7 @@ def init_miface(model, batch_size, **kwargs):
 
 
 def save_adv_batch(adv_batch, adv_data_dir, y, clean_filenames):
-    for batch_image_num, adv_image in enumerate(adv_batch):
+    for adv_image in adv_batch:
         adv_image_path = adv_data_dir / f"{y}" / f"adv_{clean_filenames}"
 
         if not adv_image_path.parent.exists():
@@ -115,9 +115,7 @@ def miface_infer(
     preds = np.argmax(classifier.predict(x_train_infer_from_zero), axis=1)
 
     for c in np.arange(10):
-        save_adv_batch(
-            [x_train_infer_from_zero[c]], adv_data_dir, c, "c" + str(c) + ".png"
-        )
+        save_adv_batch([x_train_infer_from_zero[c]], adv_data_dir, c, f"c{str(c)}.png")
 
     # print("X_TRAIN_ZERO:" + str(x_train_infer_from_zero.shape))
 

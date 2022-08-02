@@ -95,11 +95,9 @@ class RQService(object):
             timeout=timeout,
             depends_on=job_dependency,
         )
-        result: RQJob = q.enqueue(
+        return q.enqueue(
             self._run_mlflow,
             kwargs=cmd_kwargs,
             timeout=timeout,
             depends_on=job_dependency,
         )
-
-        return result

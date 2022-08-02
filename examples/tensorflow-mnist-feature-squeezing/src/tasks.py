@@ -115,7 +115,7 @@ def feature_squeeze(
         adv_perturbation_tar_name = "distance_metrics.csv.gz"
         image_size = (28, 28)
         color_mode = "grayscale"
-        if model_architecture == "alex_net" or model_architecture == "mobilenet":
+        if model_architecture in ["alex_net", "mobilenet"]:
             image_size = (224, 224)
             color_mode = "rgb"
         LOGGER.info("Downloading image archive at ", path=adv_testing_tar_name)
@@ -189,8 +189,8 @@ def feature_squeeze(
         tar = tarfile.open(adv_testing_tar)
         LOGGER.info("Saved to : ", dir=adv_testing_tar_path)
         LOGGER.info("Log defended images", filename=adv_testing_tar.name)
-        print("Base: ", str(adv_testing_tar))
-        print("Name: ", str(adv_testing_tar.name))
+        print("Base: ", adv_testing_tar)
+        print("Name: ", adv_testing_tar.name)
         mlflow.log_artifact(str(adv_testing_tar.name))
         mlflow.log_artifact(str(adv_perturbation_tar_path))
         LOGGER.info(

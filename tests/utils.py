@@ -46,7 +46,4 @@ class Timer(object):
 
     @property
     def timeout_exceeded(self) -> bool:
-        if self._timeout is None:
-            return False
-
-        return self._timeout < self.elapsed
+        return False if self._timeout is None else self._timeout < self.elapsed

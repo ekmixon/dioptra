@@ -94,8 +94,9 @@ def infer_membership(
     y_test = next(iter(testing_ds))[1].numpy()
 
     LOGGER.info(
-        "Shapes::" + str(attack.estimator.input_shape) + ":" + str(x_train.shape)
+        f"Shapes::{str(attack.estimator.input_shape)}:{str(x_train.shape)}"
     )
+
 
     attack_train_size = int(len(x_train) * attack_train_ratio)
     attack_test_size = int(len(x_test) * attack_train_ratio)
@@ -119,13 +120,9 @@ def infer_membership(
         len(inferred_train) + len(inferred_test)
     )
 
-    LOGGER.info("Accuracy:" + str(accuracy))
-    LOGGER.info(
-        "Accuracy Train:" + str(trainacc) + ": Length : " + str(len(inferred_train))
-    )
-    LOGGER.info(
-        "Accuracy Test:" + str(testacc) + ": Length : " + str(len(inferred_test))
-    )
+    LOGGER.info(f"Accuracy:{str(accuracy)}")
+    LOGGER.info(f"Accuracy Train:{str(trainacc)}: Length : {len(inferred_train)}")
+    LOGGER.info(f"Accuracy Test:{str(testacc)}: Length : {len(inferred_test)}")
     mlflow.log_metric(key="accuracy", value=accuracy)
 
     return None

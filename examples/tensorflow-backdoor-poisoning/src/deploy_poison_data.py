@@ -61,9 +61,7 @@ LOGGER: BoundLogger = structlog.stdlib.get_logger()
 
 def _map_norm(ctx, param, value):
     norm_mapping: Dict[str, float] = {"inf": np.inf, "1": 1, "2": 2}
-    processed_norm: float = norm_mapping[value]
-
-    return processed_norm
+    return norm_mapping[value]
 
 
 def _coerce_comma_separated_ints(ctx, param, value):
@@ -267,10 +265,14 @@ def deploy_poison_data() -> Flow:
 
 def get_target_class_name(poison_dir):
     poison_dir = poison_dir.resolve()
-    for item in os.listdir(poison_dir):
-        if os.path.isdir(poison_dir / item):
-            return item
-    return "None"
+    return next(
+        (
+            item
+            for item in os.listdir(poison_dir)
+            if os.path.isdir(poison_dir / item)
+        ),
+        "None",
+    )
 
 
 def copy_poisoned_images(src, dst, num_poisoned_images):
@@ -280,7 +282,9 @@ def copy_poisoned_images(src, dst, num_poisoned_images):
         if os.path.isfile(os.path.join(src, f))
     ]
     np.random.shuffle(poison_image_list)
-    if not (num_poisoned_images < 0 or num_poisoned_images > len(poison_image_list)):
+    if num_poisoned_images >= 0 and num_poisoned_images <= len(
+        poison_image_list
+    ):
         poison_image_list = poison_image_list[:num_poisoned_images]
 
     for file in poison_image_list:
@@ -325,7 +329,7 @@ def deploy_poison_images(
 
 if __name__ == "__main__":
     log_level: str = os.getenv("AI_JOB_LOG_LEVEL", default="INFO")
-    as_json: bool = True if os.getenv("AI_JOB_LOG_AS_JSON") else False
+    as_json: bool = bool(os.getenv("AI_JOB_LOG_AS_JSON"))
 
     clear_logger_handlers(get_prefect_logger())
     attach_stdout_stream_handler(as_json)

@@ -58,9 +58,7 @@ LOGGER: BoundLogger = structlog.stdlib.get_logger()
 
 def _map_norm(ctx, param, value):
     norm_mapping: Dict[str, float] = {"inf": np.inf, "1": 1, "2": 2}
-    processed_norm: float = norm_mapping[value]
-
-    return processed_norm
+    return norm_mapping[value]
 
 
 def _coerce_comma_separated_ints(ctx, param, value):
@@ -174,9 +172,7 @@ def fgm_attack(
     target_index,
     seed,
 ):
-    targeted = False
-    if target_index >= 0:
-        targeted = True
+    targeted = target_index >= 0
     LOGGER.info(
         "Execute MLFlow entry point",
         entry_point="fgm",
@@ -198,11 +194,7 @@ def fgm_attack(
     )
 
     # Allow imagenet preprocessing.
-    if imagenet_preprocessing:
-        rescale = 1.0
-    else:
-        rescale = 1.0 / 255
-
+    rescale = 1.0 if imagenet_preprocessing else 1.0 / 255
     with mlflow.start_run() as active_run:  # noqa: F841
         flow: Flow = init_fgm_flow()
         state = flow.run(
@@ -354,7 +346,7 @@ def init_fgm_flow() -> Flow:
 
 if __name__ == "__main__":
     log_level: str = os.getenv("AI_JOB_LOG_LEVEL", default="INFO")
-    as_json: bool = True if os.getenv("AI_JOB_LOG_AS_JSON") else False
+    as_json: bool = bool(os.getenv("AI_JOB_LOG_AS_JSON"))
 
     clear_logger_handlers(get_prefect_logger())
     attach_stdout_stream_handler(as_json)

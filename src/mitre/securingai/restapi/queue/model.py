@@ -80,10 +80,7 @@ class Queue(db.Model):
         """Generates the next id in the sequence."""
         queue: Optional[Queue] = cls.query.order_by(cls.queue_id.desc()).first()
 
-        if queue is None:
-            return 1
-
-        return int(queue.queue_id) + 1
+        return 1 if queue is None else int(queue.queue_id) + 1
 
     def update(self, changes: QueueUpdateInterface):
         """Updates the record.

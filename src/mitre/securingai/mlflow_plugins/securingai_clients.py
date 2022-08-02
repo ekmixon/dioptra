@@ -36,8 +36,7 @@ LOGGER: BoundLogger = structlog.stdlib.get_logger()
 class SecuringAIDatabaseClient(object):
     @property
     def app(self) -> Flask:
-        app: Flask = create_app(env=self.restapi_env)
-        return app
+        return create_app(env=self.restapi_env)
 
     @property
     def job_id(self) -> Optional[str]:

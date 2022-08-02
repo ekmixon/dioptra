@@ -72,5 +72,4 @@ def create_image_dataset(
         )
 
     dataset = ImageFolder(root=data_dir, transform=transform)
-    data_generator = DataLoader(dataset, batch_size=batch_size, shuffle=True)
-    return data_generator
+    return DataLoader(dataset, batch_size=batch_size, shuffle=True)

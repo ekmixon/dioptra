@@ -81,12 +81,10 @@ def keras_model_predict_proba(
     **kwargs,
 ) -> np.ndarray:
     predict_kwargs: Dict[str, Any] = dict(batch_size=batch_size, **kwargs)
-    prediction: np.ndarray = estimator.predict(
+    return estimator.predict(
         x=x,
         **{k: v for k, v in predict_kwargs.items() if v is not None},
     )
-
-    return prediction
 
 
 @require_package("tensorflow", exc_type=TensorflowDependencyError)
@@ -112,8 +110,7 @@ def keras_model_predict_label(
 
         return labels
 
-    flattened_labels: np.ndarray = (prediction.flatten() >= 0.5).astype(int)
-    return flattened_labels
+    return (prediction.flatten() >= 0.5).astype(int)
 
 
 def _null_predict(*args, **kwargs) -> np.ndarray:

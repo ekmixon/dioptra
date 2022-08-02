@@ -17,6 +17,7 @@
 # https://creativecommons.org/licenses/by/4.0/legalcode
 """A module for starting the gunicorn wsgi server."""
 
+
 import os
 
 from gunicorn.app.wsgiapp import run as gunicorn_cli
@@ -28,9 +29,7 @@ from mitre.securingai.sdk.utilities.logging import (
 )
 
 if __name__ == "__main__":
-    attach_stdout_stream_handler(
-        True if os.getenv("AI_RESTAPI_LOG_AS_JSON") else False,
-    )
+    attach_stdout_stream_handler(bool(os.getenv("AI_RESTAPI_LOG_AS_JSON")))
     set_logging_level(os.getenv("AI_RESTAPI_LOG_LEVEL", default="INFO"))
     configure_structlog()
     gunicorn_cli()

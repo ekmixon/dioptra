@@ -107,7 +107,7 @@ def feature_squeeze(
     color_mode = "grayscale"
     LOGGER.info("adv_data_dir: ", path=adv_data_dir)
     LOGGER.info("adv_tar_name: ", path=adv_tar_name)
-    if model_architecture == "alex_net" or model_architecture == "mobilenet":
+    if model_architecture in ["alex_net", "mobilenet"]:
         #            image_size = (224, 224)
         color_mode = "rgb"
     LOGGER.info("Downloading image archive at ", path=adv_testing_tar_name)
@@ -182,8 +182,8 @@ def feature_squeeze(
     tar = tarfile.open(adv_testing_tar)
     #       LOGGER.info("Saved to : ", dir=adv_testing_tar_path)
     LOGGER.info("Log defended images", filename=adv_testing_tar.name)
-    print("Base: ", str(adv_testing_tar))
-    print("Name: ", str(adv_testing_tar.name))
+    print("Base: ", adv_testing_tar)
+    print("Name: ", adv_testing_tar.name)
     mlflow.log_artifact(str(adv_testing_tar.name))
     #       mlflow.log_artifact(str(adv_perturbation_tar_path))
     LOGGER.info(

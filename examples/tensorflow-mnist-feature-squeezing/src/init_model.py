@@ -184,8 +184,9 @@ def load_and_test_model(data_dir, model_architecture, model_tag, batch_size, see
             mlflow.keras.log_model(
                 keras_model=newmodel,
                 artifact_path="model",
-                registered_model_name=model_name + "_logits",
+                registered_model_name=f"{model_name}_logits",
             )
+
             model = newmodel
         model = model_collection[model_architecture]()
         model.summary()

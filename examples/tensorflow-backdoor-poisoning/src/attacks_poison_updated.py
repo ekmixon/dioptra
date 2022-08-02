@@ -206,7 +206,7 @@ def create_adversarial_poison_data(
         )
 
         # Swap to poisoned labels if training mode is set.
-        if label_type == "train" or label_type == "training":
+        if label_type in {"train", "training"}:
             y_int = np.argmax(plabels, axis=1)
 
         _save_batch(
@@ -338,7 +338,7 @@ def create_adversarial_clean_poison_dataset(
         poisoned_x, plabels = backdoor_poisoner.poison(x, y)
 
         # Swap to poisoned labels if training mode is set.
-        if label_type == "train" or label_type == "training":
+        if label_type in {"train", "training"}:
             y_int = np.argmax(plabels, axis=1)
 
         _save_batch(

@@ -153,11 +153,7 @@ def deepfool_attack(
 
         adv_data_dir.mkdir(parents=True, exist_ok=True)
         image_size = (28, 28)
-        if (
-            model_architecture == "alex_net"
-            or model_architecture == "resnet50"
-            or model_architecture == "mobilenet"
-        ):
+        if model_architecture in ["alex_net", "resnet50", "mobilenet"]:
             image_size = (224, 224)
             classifier, distance_metrics = create_adversarial_deepfool_dataset(
                 data_dir=testing_dir,

@@ -76,7 +76,7 @@ def create_adversarial_jsma_dataset(
     verbose: bool = True,
     **kwargs,
 ):
-    model_name = model_name + "/" + model_version
+    model_name = f"{model_name}/{model_version}"
     LOGGER.info("Model Selected: ", model_name=model_name)
     color_mode: str = "color" if image_size[2] == 3 else "grayscale"
     target_size: Tuple[int, int] = image_size[:2]
@@ -171,10 +171,9 @@ def _init_jsma(
     Returns:
         A :py:class:`~art.attacks.evasion.CarliniLInfMethod` object.
     """
-    attack: SaliencyMapMethod = SaliencyMapMethod(
+    return SaliencyMapMethod(
         classifier=keras_classifier, batch_size=batch_size, **kwargs
     )
-    return attack
 
 
 def _save_adv_batch(adv_batch, adv_data_dir, y, clean_filenames) -> None:

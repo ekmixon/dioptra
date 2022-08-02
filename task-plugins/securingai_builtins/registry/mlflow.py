@@ -74,11 +74,9 @@ def add_model_to_registry(
         MlflowClient().create_registered_model(name=name)
 
     LOGGER.info("create model version", name=name, source=source, run_id=run_id)
-    model_version: ModelVersion = MlflowClient().create_model_version(
+    return MlflowClient().create_model_version(
         name=name, source=source, run_id=run_id
     )
-
-    return model_version
 
 
 @pyplugs.register

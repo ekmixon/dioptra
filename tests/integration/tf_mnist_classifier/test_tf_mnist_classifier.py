@@ -32,12 +32,14 @@ def test_tf_mnist_classifier(
     testbed_hosts,
 ):
     def job_still_running(response):
-        return response["status"] not in set(("failed", "finished"))
+        return response["status"] not in {"failed", "finished"}
 
     def mlflow_run_id_is_not_known(response):
-        return (response["mlflowRunId"] is None) and (
-            response["status"] not in set(("failed", "finished"))
-        )
+        return response["mlflowRunId"] is None and response["status"] not in {
+            "failed",
+            "finished",
+        }
+
 
     # Create experiment namespace
     response_experiment = testbed_client.get_experiment_by_name(name="mnist")

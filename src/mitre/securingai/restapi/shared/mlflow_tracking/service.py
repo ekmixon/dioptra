@@ -34,8 +34,7 @@ class MLFlowTrackingService(object):
         log: BoundLogger = kwargs.get("log", LOGGER.new())
 
         try:
-            experiment_id: str = self._client.create_experiment(name=experiment_name)
-            return experiment_id
+            return self._client.create_experiment(name=experiment_name)
 
         except RestException as e:
             if e.error_code == "RESOURCE_ALREADY_EXISTS":

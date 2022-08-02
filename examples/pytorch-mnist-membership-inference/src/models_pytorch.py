@@ -69,7 +69,7 @@ def make_model_register(
 def le_net(
     input_shape: Tuple[int, int, int] = (28, 28, 1), n_classes: int = 10
 ) -> Sequential:
-    model = Sequential(
+    return Sequential(
         # first convolutional layer:
         Conv2d(1, 20, 5, 1),
         ReLU(),
@@ -86,4 +86,3 @@ def le_net(
         Linear(500, 10),
         Softmax(),
     )
-    return model

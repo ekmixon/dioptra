@@ -161,10 +161,9 @@ def create_adversarial_fgm_dataset(
 def _init_fgm(
     keras_classifier: KerasClassifier, batch_size: int, **kwargs
 ) -> FastGradientMethod:
-    attack: FastGradientMethod = FastGradientMethod(
+    return FastGradientMethod(
         estimator=keras_classifier, batch_size=batch_size, **kwargs
     )
-    return attack
 
 
 def _save_adv_batch(

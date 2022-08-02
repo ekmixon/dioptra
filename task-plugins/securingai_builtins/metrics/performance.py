@@ -140,8 +140,7 @@ def accuracy(y_true, y_pred, **kwargs) -> float:
     See Also:
         - :py:func:`sklearn.metrics.accuracy_score`
     """
-    metric: float = accuracy_score(y_true=y_true, y_pred=y_pred, **kwargs)
-    return metric
+    return accuracy_score(y_true=y_true, y_pred=y_pred, **kwargs)
 
 
 def roc_auc(y_true, y_pred, **kwargs) -> float:
@@ -159,8 +158,7 @@ def roc_auc(y_true, y_pred, **kwargs) -> float:
     See Also:
         - :py:func:`sklearn.metrics.roc_auc_score`
     """
-    metric: float = roc_auc_score(y_true=y_true, y_score=y_pred, **kwargs)
-    return metric
+    return roc_auc_score(y_true=y_true, y_score=y_pred, **kwargs)
 
 
 def categorical_accuracy(y_true, y_pred) -> float:
@@ -186,9 +184,7 @@ def categorical_accuracy(y_true, y_pred) -> float:
     else:
         label_comparison = y_true == y_pred
 
-    metric: float = float(np.mean(label_comparison))
-
-    return metric
+    return float(np.mean(label_comparison))
 
 
 def mcc(y_true, y_pred, **kwargs) -> float:
@@ -205,8 +201,7 @@ def mcc(y_true, y_pred, **kwargs) -> float:
     See Also:
         - :py:func:`sklearn.metrics.matthews_corrcoef`
     """
-    metric: float = matthews_corrcoef(y_true=y_true, y_pred=y_pred, **kwargs)
-    return metric
+    return matthews_corrcoef(y_true=y_true, y_pred=y_pred, **kwargs)
 
 
 def f1(y_true, y_pred, **kwargs) -> float:
@@ -225,8 +220,7 @@ def f1(y_true, y_pred, **kwargs) -> float:
     See Also:
         - :py:func:`sklearn.metrics.f1_score`
     """
-    metric: float = f1_score(y_true=y_true, y_pred=y_pred, **kwargs)
-    return metric
+    return f1_score(y_true=y_true, y_pred=y_pred, **kwargs)
 
 
 def precision(y_true, y_pred, **kwargs) -> float:
@@ -245,8 +239,7 @@ def precision(y_true, y_pred, **kwargs) -> float:
     See Also:
         - :py:func:`sklearn.metrics.precision_score`
     """
-    metric: float = precision_score(y_true=y_true, y_pred=y_pred, **kwargs)
-    return metric
+    return precision_score(y_true=y_true, y_pred=y_pred, **kwargs)
 
 
 def recall(y_true, y_pred, **kwargs) -> float:
@@ -265,8 +258,7 @@ def recall(y_true, y_pred, **kwargs) -> float:
     See Also:
         - :py:func:`sklearn.metrics.recall_score`
     """
-    metric: float = recall_score(y_true=y_true, y_pred=y_pred, **kwargs)
-    return metric
+    return recall_score(y_true=y_true, y_pred=y_pred, **kwargs)
 
 
 PERFORMANCE_METRICS_REGISTRY: Dict[str, Callable[..., Any]] = dict(

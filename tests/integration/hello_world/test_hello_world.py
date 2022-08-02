@@ -26,7 +26,7 @@ def test_hello_world(
     docker_client, testbed_client, mlflow_client, workflows_tar_gz, testbed_hosts
 ):
     def job_still_running(response):
-        return response["status"] not in set(("failed", "finished"))
+        return response["status"] not in {"failed", "finished"}
 
     response_experiment = testbed_client.get_experiment_by_name(name="hello_world")
 

@@ -240,7 +240,7 @@ def test_get_all_unlocked(
     )
 
     assert len(results) == 3
-    assert len(queue_name_diff) == 0
+    assert not queue_name_diff
 
 
 def test_get_all_locked(
@@ -251,7 +251,7 @@ def test_get_all_locked(
     queue_name_diff: Set[str] = queue_names.difference({"tensorflow_gpu_dev"})
 
     assert len(results) == 1
-    assert len(queue_name_diff) == 0
+    assert not queue_name_diff
 
 
 def test_extract_data_from_form(

@@ -88,10 +88,7 @@ class MockRQJob(object):
     @property
     def dependency(self) -> Optional[MockRQJob]:
         LOGGER.info("Mocking rq.job.Job.dependency getter")
-        if not self._dependency_ids:
-            return None
-
-        return self.fetch(self._dependency_ids[0])
+        return self.fetch(self._dependency_ids[0]) if self._dependency_ids else None
 
 
 class MockRQQueue(object):

@@ -220,7 +220,4 @@ class S3Service(object):
         log: BoundLogger = kwargs.get("log", LOGGER.new())  # noqa: F841
         prefix = prefix.strip()
 
-        if prefix == "/":
-            return "/"
-
-        return f"{Path(prefix.lstrip('/')).as_posix()}/"
+        return "/" if prefix == "/" else f"{Path(prefix.lstrip('/')).as_posix()}/"

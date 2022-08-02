@@ -114,7 +114,7 @@ def load_and_test_model(data_dir, dataset_name):
 
     with mlflow.start_run() as _:
         model = init_model()
-        print("HERE:" + str(model.outputs))
+        print(f"HERE:{str(model.outputs)}")
         mlflow.keras.log_model(
             keras_model=model,
             artifact_path="patch-defended",

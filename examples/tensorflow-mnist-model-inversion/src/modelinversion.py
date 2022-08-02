@@ -89,9 +89,7 @@ def infer_model_inversion(
     attack_inferred = attack.infer(None, y=np.arange(classes))
 
     for c in np.arange(classes):
-        _save_adv_batch(
-            [attack_inferred[c]], adv_data_dir, c, "inferred" + str(c) + ".png"
-        )
+        _save_adv_batch([attack_inferred[c]], adv_data_dir, c, f"inferred{str(c)}.png")
 
     return None
 
@@ -99,12 +97,11 @@ def infer_model_inversion(
 def _init_miface(
     keras_classifier: KerasClassifier, batch_size: int, **kwargs
 ) -> MIFace:
-    attack: MIFace = MIFace(keras_classifier, batch_size=batch_size, **kwargs)
-    return attack
+    return MIFace(keras_classifier, batch_size=batch_size, **kwargs)
 
 
 def _save_adv_batch(adv_batch, adv_data_dir, y, filename) -> None:
-    for batch_image_num, adv_image in enumerate(adv_batch):
+    for adv_image in adv_batch:
         adv_image_path = adv_data_dir / f"{y}" / f"adv_{filename}"
         LOGGER.warn(adv_image_path)
         if not adv_image_path.parent.exists():

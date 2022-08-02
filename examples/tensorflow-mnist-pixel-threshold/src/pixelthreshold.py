@@ -189,8 +189,7 @@ def create_pt_dataset(
 def _init_pt(
     keras_classifier: KerasClassifier, batch_size: int, **kwargs
 ) -> PixelAttack:
-    attack: PixelAttack = PixelAttack(classifier=keras_classifier, **kwargs)
-    return attack
+    return PixelAttack(classifier=keras_classifier, **kwargs)
 
 
 def _save_adv_batch(adv_batch, adv_data_dir, y, clean_filenames) -> None:

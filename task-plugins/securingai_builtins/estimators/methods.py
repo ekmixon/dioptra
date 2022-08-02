@@ -117,6 +117,4 @@ def predict(
         - :py:func:`mitre.securingai.sdk.generics.estimator_predict`
     """
     predict_kwargs = predict_kwargs or {}
-    prediction: Any = estimator_predict(estimator, x, **predict_kwargs)
-
-    return prediction
+    return estimator_predict(estimator, x, **predict_kwargs)

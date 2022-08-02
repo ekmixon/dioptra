@@ -52,7 +52,7 @@ def configure_structlog_logger(fmt):
 def _add_timestamp(_, __, event_dict: dict) -> dict:
     now = datetime.datetime.utcnow()
     millis = "{:3d}".format(int(now.microsecond / 1000))
-    event_dict["timestamp"] = "%s.%sZ" % (now.strftime("%Y-%m-%dT%H:%M:%S"), millis)
+    event_dict["timestamp"] = f'{now.strftime("%Y-%m-%dT%H:%M:%S")}.{millis}Z'
 
     return event_dict
 

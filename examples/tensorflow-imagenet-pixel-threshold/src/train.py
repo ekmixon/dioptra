@@ -114,10 +114,7 @@ def prepare_data(
     training_dir = Path(data_dir) / "training"
     testing_dir = Path(data_dir) / "testing"
 
-    image_size = (28, 28)
-    if model_architecture == "alex_net":
-        image_size = (224, 224)
-
+    image_size = (224, 224) if model_architecture == "alex_net" else (28, 28)
     training = create_image_dataset(
         data_dir=str(training_dir),
         subset="training",

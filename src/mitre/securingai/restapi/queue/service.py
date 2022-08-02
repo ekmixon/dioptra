@@ -211,8 +211,4 @@ class QueueService(object):
         log: BoundLogger = kwargs.get("log", LOGGER.new())
 
         log.info("Extract data from queue registration form")
-        data: QueueRegistrationFormData = self._queue_registration_form_schema.dump(
-            queue_registration_form
-        )
-
-        return data
+        return self._queue_registration_form_schema.dump(queue_registration_form)

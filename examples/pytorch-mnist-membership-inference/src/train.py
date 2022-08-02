@@ -122,7 +122,7 @@ def fit(model, training_ds, validation_ds, epochs, optimizer):
     )
     loss_fn = CrossEntropyLoss()
     ave_loss = 0
-    for _, (x, target) in enumerate(training_ds):
+    for x, target in training_ds:
         optimizer.zero_grad()
         x, target = Variable(x), Variable(target)
         out = model(x)
@@ -161,7 +161,7 @@ def evaluate_metrics(model, testing_ds):
         correct += (predicted == t_y).sum().item()
 
     accuracy = correct / total
-    LOGGER.info("Accuracy:" + str(accuracy))
+    LOGGER.info(f"Accuracy:{str(accuracy)}")
     mlflow.log_metric(key="accuracy", value=accuracy)
 
 
@@ -229,7 +229,7 @@ def train(
     validation_split,
     seed,
 ):
-    register_model = True if register_model == "True" else False
+    register_model = register_model == "True"
     rng = np.random.default_rng(seed if seed >= 0 else None)
 
     if seed < 0:

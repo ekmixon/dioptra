@@ -93,8 +93,8 @@ class MnistDataset(object):
         return pd.DataFrame(
             {
                 "id": range(len(self._train_labels_cache)),
-                "image": [image_array for image_array in self._train_images_cache],
-                "label": [label for label in self._train_labels_cache],
+                "image": list(self._train_images_cache),
+                "label": list(self._train_labels_cache),
             }
         )
 
@@ -113,8 +113,8 @@ class MnistDataset(object):
         return pd.DataFrame(
             {
                 "id": range(len(self._test_labels_cache)),
-                "image": [image_array for image_array in self._test_images_cache],
-                "label": [label for label in self._test_labels_cache],
+                "image": list(self._test_images_cache),
+                "label": list(self._test_labels_cache),
             }
         )
 

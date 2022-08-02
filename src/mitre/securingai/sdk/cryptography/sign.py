@@ -126,13 +126,11 @@ def sign(
         filepath=private_key_file
     )
     payload: bytes = load_payload(filepath=payload_file)
-    signature: bytes = sign_payload(
+    return sign_payload(
         payload=payload,
         private_key=private_key,
         filepath=signature_file or f"{payload_file}.sig",
     )
-
-    return signature
 
 
 if __name__ == "__main__":

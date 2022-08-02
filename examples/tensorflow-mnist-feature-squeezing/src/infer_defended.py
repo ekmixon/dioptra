@@ -129,10 +129,7 @@ def infer_adversarial(run_id, model, model_architecture, batch_size, seed, bit_d
         adv_testing_tar_name = "testing_adversarial_fgm.tar.gz"
         adv_testing_data_dir = Path.cwd() / "adv_testing"
 
-        image_size = (28, 28)
-        if model_architecture == "alex_net":
-            image_size = (224, 224)
-
+        image_size = (224, 224) if model_architecture == "alex_net" else (28, 28)
         adv_testing_tar_path = download_image_archive(
             run_id=run_id, archive_path=adv_testing_tar_name
         )

@@ -93,8 +93,7 @@ def _flatten_batch(X):
 
 def _matrix_difference_l_norm(y_true, y_pred, order):
     y_diff = _flatten_batch(y_true - y_pred)
-    y_diff_l_norm = np.linalg.norm(y_diff, axis=1, ord=order)
-    return y_diff_l_norm
+    return np.linalg.norm(y_diff, axis=1, ord=order)
 
 
 def _normalize_batch(X, order):
